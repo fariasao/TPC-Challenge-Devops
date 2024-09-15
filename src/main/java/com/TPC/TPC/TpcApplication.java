@@ -31,6 +31,6 @@ public class TpcApplication {
 	@RequestMapping
 	@ResponseBody
 	public String home(){
-		return "TPC - Challenge 2024";
+		return "TPC - Challenge 2024 - API Rodando";
 	}
 }
