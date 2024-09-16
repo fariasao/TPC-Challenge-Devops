@@ -3,29 +3,56 @@
 ## Sumário
 - [Integrantes;](#integrantes)
 - [Documentação completa;](#documentação-completa)
-- [Cronograma das sprints;](#cronograma-das-sprints)
 - [Instruções para uso da aplicação;](#instruções-para-uso-da-aplicação)
-- [Imagem dos diagramas de classe;](#imagem-dos-diagramas-de-classe)
-- [Link para vídeo com a proposta tecnológica;](#link-para-vídeo-com-a-proposta-tecnológica)
+- [Link para vídeo com a proposta tecnológica;](#link-para-vídeo-com-o-passo-a-passo-do-deploy-e-utilização)
 - [Listagem de Endpoints.](#listagem-de-endpoints)
-- [Link para o Swagger.](#link-para-o-swagger)
+- [Link para o Json Collection(Postman)](#json-collection)
 
 ## Integrantes
-- Beatriz Lucas - RM99104 (Responsável por atuar em Disruptive Architectures, Compliance & Quality Assurance e DevOps Tools & Cloud Computing);
-- Enzo Farias - RM98792 (Responsável por atuar em Disruptive Architectures, Advanced Business Development with .NET, Java Advanced e Mobile App Development);
-- Ewerton Gonçalves - RM98571 (Responsável por atuar em Mastering Relational and Non-Relational Database, Mobile App Development e DevOps Tools & Cloud Computing);
-- Guilherme Tantulli - RM97890 (Responsável por atuar em Compliance & Quality Assurance, Advanced Business Development with .NET e Mobile App Development);
-- Thiago Zupelli - RM99085 (Responsável por atuar em Disruptive Architectures, Advanced Business Development with .NET, Java Advanced e Mastering Relational and Non-Relational Database).
+- Beatriz Lucas - RM99104
+- Enzo Farias - RM98792
+- Ewerton Gonçalves - RM98571
+- Guilherme Tantulli - RM97890
+- Thiago Zupelli - RM99085
 
 ## Documentação completa
 [PDF com a documentação completa.](TPC_JavaAdvanced_1stSprint.pdf)
 
-## Cronograma das Sprints
-### Primeira Sprint
-![Primeira Sprint](./images/Cronograma1stSprint.png)
-### Segunda Sprint
-![Segunda Sprint](./images/Cronograma2ndSprint.png)
-[Link para o arquivo completo.](Cronograma_TPC_Challenge.xlsx)
+## Link para vídeo com o passo a passo do deploy e utilização
+[![Vídeo TPC](http://img.youtube.com/vi/3V5XxM7scrQ/0.jpg)](https://www.youtube.com/watch?v=T1zjPXHdDEk)
+
+## Instruções para Deploy
+1. **Vamos criar o Serviço de Aplicativo no Portal da Azure. Na aba Básico deixe as propriedades dessa forma**:
+    - Grupo de recursos Novo: SpringApi-webapp
+    - Nome: LesSoft-API
+    - Codigo
+    - pilha de runtime: Java 21
+    - Pilha de serviço: java SE
+    - Sistema Operacional: Windowns
+    - Região: Brasil South
+    - Plano do windowns (novo):API-LesSoft
+    - Plano de preços: Gratuito F1
+2. **Implantação** 
+    - Na aba Implantação deixe o opção de Habilitar a Implantação Contínua e autorize o acesso do Azure em sua conta no GitHub 
+    - Ainda na aba Implantação informe sua conta no GitHub, faça o fork deste repositorio e o selecione junto com a branch para Build e Deploy
+3. **Rede**
+    - Na aba Rede deixe o Acesso Público Ativado
+4. **Monitoramento**
+    - Na aba Monitoramento deixe o Application Insights desabilitado para esse projeto
+5. **Revisar e Criar**
+    - vá até a aba Revisar e Criar, analise as propriedades e, estando tudo OK, clique em Criar
+6. **Build e Deploy**
+    - Aguarde o Build e o Deploy
+    - no navegador insira o sufixo https://lessoft-api.azurewebsites.net/
+7. **Testes**
+    - Utilizando nossa Json Collection, execute testes no postman
+    - Verifique sua persistencia no banco oracle configurado no App
+
+## Json Collection
+[Postman](Less%20Soft%20-%20Challenge.postman_collection.json)
+
+## Desenho Da arquitetura da solução
+[Arquitetura](arquitetura.png)
 
 ## Instruções para uso da aplicação
 ### Iniciando a Aplicação
@@ -39,14 +66,12 @@
 
 ### Acesso ao Banco de Dados
 
-1. **Acessando o Console do H2**:
-    - Com a aplicação em execução, abra um navegador web e acesse **`http://localhost:8080/h2-console`** para abrir o console do banco de dados H2.
-    - Na página de login do console H2, você precisará configurar a conexão JDBC para acessar o banco de dados em memória:
-        - **JDBC URL**: Substitua a URL padrão pela URL específica do projeto: **`jdbc:h2:mem:tpcjava`**. Isso conectará ao banco de dados em memória denominado **`tpcjava`** que é configurado automaticamente quando a aplicação é iniciada.
-        - **Usuário** e **Senha**: Se configurado, use as credenciais apropriadas. Para muitas configurações padrão do H2, a senha pode ser deixada em branco.
+1. **Acessando o Oracle**:
+    - Com a aplicação em execução, abra o SQL Developer e insira as credenciais necessarias, e rode o script sql no seu banco
+    - volte no arquivo application.properties do projeto e atualize com as suas credenciais
 2. **Interagindo com o Banco de Dados**:
-    - Dentro do console H2, você pode executar comandos SQL para consultar ou modificar dados. Por exemplo, após fazer mudanças via sua aplicação, você pode verificar os efeitos dessas mudanças no banco de dados executando um comando **`SELECT`** apropriado.
-    - Use a área de consulta SQL no console H2 para inserir, atualizar, ou deletar dados manualmente, o que pode ser útil para testes rápidos ou manipulação de dados durante o desenvolvimento.
+    - Dentro do oracle, você pode executar comandos SQL para consultar ou modificar dados. Por exemplo, após fazer mudanças via sua aplicação, você pode verificar os efeitos dessas mudanças no banco de dados executando um comando **`SELECT`** apropriado.
+    - Use a área de consulta no Oracle para inserir, atualizar, ou deletar dados manualmente, o que pode ser útil para testes rápidos ou manipulação de dados durante o desenvolvimento.
 
 **Utilização da API**
 
@@ -217,16 +242,6 @@ Aqui estão exemplos de como interagir com cada tipo de recurso:
 
 - **Ambiente de Desenvolvimento**: Certifique-se de que sua IDE está configurada com o JDK apropriado para o projeto e com todas as dependências, definidas geralmente no **`pom.xml`** (Maven).
 
-## Imagem dos diagramas de classe
-UML:\
-![UML](./images/TPC_Challenge_v2Alt.png)
-
-Banco de Dados:\
-![Banco de Dados](./images/DB_TPC.png)
-
-## Link para vídeo com a proposta tecnológica
-[![Vídeo TPC](http://img.youtube.com/vi/3V5XxM7scrQ/0.jpg)](http://www.youtube.com/watch?v=3V5XxM7scrQ)
-
 ## Listagem de Endpoints
 ### Endpoints para Users:
 GET /users - Buscar todos os usuários.\
@@ -332,7 +347,3 @@ GET /pontoscompras/{pontosCompraID} - Buscar um ponto pelo ID.\
 POST /pontoscompras - Criar novos pontos.\
 PUT /pontoscompras/{pontosCompraID} - Atualizar um ponto existente.\
 DELETE /pontoscompras/{pontosCompraID} - Deletar um ponto pelo ID.
-
-## Link para o Swagger
-[Swagger](http://localhost:8080/docs)\
-OBS: a API precisa estar rodando para funcionamento do mesmo.
